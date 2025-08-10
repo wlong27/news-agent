@@ -1,0 +1,26 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model TargetUrl {
+  id          Int      @id @default(autoincrement())
+  url         String   @unique
+  description String?
+  isActive    Boolean  @default(true)
+  lastScraped DateTime?
+}
+
+model ScrapedContent {
+  id         Int      @id @default(autoincrement())
+  sourceUrl  String
+  content    String
+  timestamp  DateTime @default(now())
+  format     String
+}
